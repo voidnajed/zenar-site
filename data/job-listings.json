@@ -1,6 +1,7 @@
 {
-  "lastUpdated": "2026-04-25T16:42:00Z",
-  "lastCrawl": "2026-04-25T16:42:00Z",
+  "lastUpdated": "2026-04-25T22:19:55.177Z",
+  "lastCrawl": "2026-04-25T22:19:55.177Z",
+  "totalListings": 41,
   "listings": [
     {
       "id": "hd-stamford-freight-2026-01-20",
@@ -554,6 +555,102 @@
       "status": "sent",
       "source": "wayup.com",
       "sentDate": "2026-04-25T18:53:29.020180Z"
+    },
+    {
+      "id": "job-23-1777155595177",
+      "company": "OnTrac (Lasership)",
+      "jobTitle": "Warehouse Associate / Package Handler",
+      "location": "Stamford, CT 06902",
+      "link": "https://jobs.ontrac.com/job/stamford/warehouse-associate/47156/87930006800",
+      "salaryRange": "$17.50/hr",
+      "source": "OnTrac Careers",
+      "discovered": "2026-04-25T22:19:55.177Z",
+      "status": "new",
+      "matchScore": "MEDIUM"
+    },
+    {
+      "id": "job-24-1777155595177",
+      "company": "OnTrac (Lasership)",
+      "jobTitle": "Package Handler",
+      "location": "Stamford, CT 06902",
+      "link": "https://jobs.ontrac.com/job/stamford/package-handler/47156/86352001168",
+      "salaryRange": "$17.50/hr",
+      "source": "OnTrac Careers",
+      "discovered": "2026-04-25T22:19:55.177Z",
+      "status": "new",
+      "matchScore": "MEDIUM"
+    },
+    {
+      "id": "job-25-1777155595177",
+      "company": "Plimpton & Hills",
+      "jobTitle": "Warehouse Associate",
+      "location": "Stamford, CT 06906",
+      "link": "https://www.ziprecruiter.com/c/Plimpton-&-Hills/Job/Warehouse-Associate-Stamford/-in-Stamford,CT?jid=c271a7f249b7b075",
+      "salaryRange": "$20.00/hr",
+      "source": "ZipRecruiter",
+      "discovered": "2026-04-25T22:19:55.177Z",
+      "status": "new",
+      "matchScore": "MEDIUM"
+    },
+    {
+      "id": "job-26-1777155595177",
+      "company": "Plimpton & Hills",
+      "jobTitle": "Warehouse Operations Manager",
+      "location": "Stamford, CT",
+      "link": "https://www.ziprecruiter.com/c/Plimpton-and-Hills/Job/Warehouse-Operations-Manager/-in-Stamford,CT?jid=82fc4924e7226c9d",
+      "salaryRange": "Not specified",
+      "source": "ZipRecruiter",
+      "discovered": "2026-04-25T22:19:55.177Z",
+      "status": "new",
+      "matchScore": "MEDIUM"
+    },
+    {
+      "id": "job-27-1777155595177",
+      "company": "Goodwill of Western & Northern Connecticut",
+      "jobTitle": "Warehouse Associate",
+      "location": "Stamford, CT",
+      "link": "https://www.ziprecruiter.com/co/Goodwill/Jobs/-in-Stamford,CT",
+      "salaryRange": "$16-$21/hr",
+      "source": "ZipRecruiter",
+      "discovered": "2026-04-25T22:19:55.177Z",
+      "status": "new",
+      "matchScore": "MEDIUM"
+    },
+    {
+      "id": "job-28-1777155595177",
+      "company": "Robert Half",
+      "jobTitle": "Data Entry Clerk",
+      "location": "Stamford, CT",
+      "link": "https://www.roberthalf.com/us/en/job/stamford-ct/data-entry-clerk/00720-0013392481-usen",
+      "salaryRange": "$28.70/hr (avg)",
+      "source": "Robert Half",
+      "discovered": "2026-04-25T22:19:55.177Z",
+      "status": "new",
+      "matchScore": "MEDIUM"
+    },
+    {
+      "id": "job-29-1777155595177",
+      "company": "Manufacturer (Temp)",
+      "jobTitle": "Warehouse Associate",
+      "location": "Stamford, CT",
+      "link": "https://www.indeed.com/q-where-house-l-stamford,-ct-jobs.html",
+      "salaryRange": "Not specified",
+      "source": "Indeed",
+      "discovered": "2026-04-25T22:19:55.177Z",
+      "status": "new",
+      "matchScore": "MEDIUM"
+    },
+    {
+      "id": "job-30-1777155595177",
+      "company": "Jay Peak Resort",
+      "jobTitle": "Front Desk Agent (Winter 2025/26)",
+      "location": "Jay, VT",
+      "link": "https://www.ziprecruiter.com/c/Jay-Peak-Resort/Job/Front-Desk-Agent-Winter-2025-26/-in-Jay,VT?jid=3372de7720edbf2d",
+      "salaryRange": "$18/hr",
+      "source": "ZipRecruiter",
+      "discovered": "2026-04-25T22:19:55.177Z",
+      "status": "new",
+      "matchScore": "HIGH"
     }
   ]
 }
