@@ -54,6 +54,7 @@
         <button class="tab-btn" data-tab="serbia" role="tab" aria-selected="false" aria-controls="serbia">Serbia &amp; Vojvodina</button>
         <button class="tab-btn" data-tab="wwii" role="tab" aria-selected="false" aria-controls="wwii">WWII &amp; Aftermath</button>
         <button class="tab-btn" data-tab="heraldry" role="tab" aria-selected="false" aria-controls="heraldry">Crest &amp; Heraldry</button>
+        <button class="tab-btn" data-tab="jobboard" role="tab" aria-selected="false" aria-controls="jobboard">💼 Job Board</button>
         <button class="tab-btn tab-btn-easter" data-tab="arcade" role="tab" aria-selected="false" aria-controls="arcade" title="Easter egg!">&#x1F47E;</button>
       </div>
     </nav>
@@ -437,6 +438,38 @@
         </section>
       </div>
 
+      <!-- ==================== JOB BOARD TAB ==================== -->
+      <div class="tab-panel" id="jobboard" role="tabpanel">
+        <section class="section">
+          <div class="section-inner" style="max-width:100%;">
+            <p class="label">Opportunities</p>
+            <h2 class="heading-section">Job Board</h2>
+            <p class="body-text">Current openings in Stamford CT and Jay Peak VT areas.</p>
+            <div class="modern-divider"></div>
+
+            <div id="jb-stats" style="display:flex;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-6);"></div>
+
+            <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-bottom:var(--space-6);">
+              <select id="jb-filter-location" style="padding:var(--space-2) var(--space-3);border-radius:var(--radius-md);border:1px solid var(--color-border);background:var(--color-surface);color:var(--color-text);font-size:var(--text-sm);">
+                <option value="">All Locations</option>
+              </select>
+              <select id="jb-filter-status" style="padding:var(--space-2) var(--space-3);border-radius:var(--radius-md);border:1px solid var(--color-border);background:var(--color-surface);color:var(--color-text);font-size:var(--text-sm);">
+                <option value="">All Statuses</option>
+                <option value="new">New</option>
+                <option value="sent">Sent</option>
+                <option value="expired">Expired</option>
+              </select>
+            </div>
+
+            <div id="jb-listings" style="display:grid;gap:var(--space-4);"></div>
+
+            <div class="modern-divider" style="margin-top:var(--space-8);"></div>
+            <h3 class="heading-sub">Job Sources</h3>
+            <div id="jb-sources" style="display:grid;gap:var(--space-3);margin-top:var(--space-4);"></div>
+          </div>
+        </section>
+      </div>
+
     </main>
 
     <!-- ===== FOOTER ===== -->
@@ -450,6 +483,7 @@
 
   <script src="./game.js"></script>
   <script src="./app.js" defer></script>
+  <script src="./jobboard.js" defer></script>
 <!-- WiredMinds eMetrics tracking with Enterprise Edition V5.4 START -->
 <script type='text/javascript' src='https://count.carrierzone.com/app/count_server/count.js'></script>
 <script type='text/javascript'><!--

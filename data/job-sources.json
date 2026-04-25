@@ -1,0 +1,195 @@
+{
+  "sources": [
+    {
+      "id": "source-indeed",
+      "name": "Indeed",
+      "url": "https://indeed.com",
+      "description": "Major job board with entry-level positions",
+      "searchTerms": [
+        "warehouse",
+        "logistics",
+        "entry-level"
+      ],
+      "added": "2026-04-25T10:42:00Z",
+      "active": true
+    },
+    {
+      "id": "source-ziprecruiter",
+      "name": "ZipRecruiter",
+      "url": "https://ziprecruiter.com",
+      "description": "Job aggregator with targeted search",
+      "searchTerms": [
+        "warehouse",
+        "receiving",
+        "inventory"
+      ],
+      "added": "2026-04-25T10:42:00Z",
+      "active": true
+    },
+    {
+      "id": "source-homedepot-careers",
+      "name": "Home Depot Careers",
+      "url": "https://careers.homedepot.com",
+      "description": "Direct hire - receiving/freight positions",
+      "searchTerms": [
+        "receiving",
+        "freight",
+        "warehouse"
+      ],
+      "added": "2026-04-25T10:42:00Z",
+      "active": true
+    },
+    {
+      "id": "source-amazon-hiring",
+      "name": "Amazon Hiring",
+      "url": "https://hiring.amazon.com",
+      "description": "Amazon warehouse and fulfillment centers",
+      "searchTerms": [
+        "warehouse",
+        "associate",
+        "fulfillment"
+      ],
+      "added": "2026-04-25T10:42:00Z",
+      "active": true
+    },
+    {
+      "id": "source-jay-peak-careers",
+      "name": "Jay Peak Resort Careers",
+      "url": "https://jaypeakresort.com/careers",
+      "description": "Seasonal hospitality and guest services",
+      "searchTerms": [
+        "front desk",
+        "hospitality",
+        "guest services"
+      ],
+      "added": "2026-04-25T10:42:00Z",
+      "active": true
+    },
+    {
+      "id": "source-csv-0-1777116775",
+      "name": "Indeed",
+      "url": "https://www.indeed.com/l-stamford,-ct-jobs.html",
+      "description": "One of the largest job search engines with over 224,000 listings in the Stamford area, covering diverse industries from warehouse and retail positions to professional roles.",
+      "searchTerms": [],
+      "added": "2026-04-25T11:32:55.171428Z",
+      "active": true
+    },
+    {
+      "id": "source-csv-1-1777116775",
+      "name": "LinkedIn Jobs",
+      "url": "https://www.linkedin.com/jobs/jobs-in-stamford-ct",
+      "description": "Professional networking platform with 47,000+ job listings in Stamford, particularly strong for corporate, finance, and executive-level positions.",
+      "searchTerms": [],
+      "added": "2026-04-25T11:32:55.171801Z",
+      "active": true
+    },
+    {
+      "id": "source-csv-2-1777116775",
+      "name": "Monster",
+      "url": "https://www.monster.com/jobs/l-stamford-ct",
+      "description": "Major job board featuring positions at Fortune 500 companies headquartered in Stamford including Deloitte, PwC, Gartner, and Nestl\u00e9 across finance, banking, consulting, and real estate sectors.",
+      "searchTerms": [],
+      "added": "2026-04-25T11:32:55.171809Z",
+      "active": true
+    },
+    {
+      "id": "source-csv-3-1777116775",
+      "name": "ZipRecruiter",
+      "url": "https://www.ziprecruiter.com/Jobs/Search/-in-Stamford,CT",
+      "description": "Aggregates jobs from multiple sources with positions ranging from $67k-$150k, featuring 16 million+ jobs including many not found on other platforms.",
+      "searchTerms": [],
+      "added": "2026-04-25T11:32:55.171813Z",
+      "active": true
+    },
+    {
+      "id": "source-csv-4-1777116775",
+      "name": "JOB TODAY",
+      "url": "https://jobtoday.com/us/jobs-immediately/ct_stamford",
+      "description": "Mobile-first platform with 405 immediate hire jobs in Stamford, focused on quick placement opportunities.",
+      "searchTerms": [],
+      "added": "2026-04-25T11:32:55.171816Z",
+      "active": true
+    },
+    {
+      "id": "source-csv-5-1777116775",
+      "name": "City of Stamford Jobs",
+      "url": "https://www.stamfordct.gov/government/human-resources/city-jobs",
+      "description": "Official portal for municipal employment opportunities and appointments to city boards and commissions.",
+      "searchTerms": [],
+      "added": "2026-04-25T11:32:55.171820Z",
+      "active": true
+    },
+    {
+      "id": "source-csv-6-1777116775",
+      "name": "American Job Center - Southwest Connecticut",
+      "url": "https://ajcswct.com",
+      "description": "Government-sponsored workforce development center at 141 Franklin Street (2nd Floor) offering career counseling, job skills training, and job search assistance at no cost. Phone: (203) 353-XXXX.",
+      "searchTerms": [],
+      "added": "2026-04-25T11:32:55.171823Z",
+      "active": true
+    },
+    {
+      "id": "source-csv-7-1777116775",
+      "name": "Fairfield County Jobs",
+      "url": "https://fairfieldpubliclibrary.org/job-and-career-resources/",
+      "description": "Connecticut's #1 local job board focusing specifically on Fairfield County positions, accessible through library resources.",
+      "searchTerms": [],
+      "added": "2026-04-25T11:32:55.171826Z",
+      "active": true
+    },
+    {
+      "id": "source-csv-8-1777116775",
+      "name": "Instawork",
+      "url": "https://www.instawork.com/local-staffing/stamford",
+      "description": "On-demand platform for flexible, seasonal, and temp-to-hire opportunities connecting workers in Stamford, Norwalk, and Greenwich with immediate positions.",
+      "searchTerms": [],
+      "added": "2026-04-25T11:32:55.171830Z",
+      "active": true
+    },
+    {
+      "id": "source-csv-9-1777116775",
+      "name": "Express Employment Professionals",
+      "url": "https://www.expresspros.com/us-connecticut-fairfield",
+      "description": "Full-service staffing agency at 1 Bank St #306, Stamford (203-327-5627) and 1495 Black Rock Turnpike, Fairfield (203-368-3334), specializing in office services, light industrial, and skilled trades. Open M-F 8AM-5PM.",
+      "searchTerms": [],
+      "added": "2026-04-25T11:32:55.171833Z",
+      "active": true
+    },
+    {
+      "id": "source-csv-10-1777116775",
+      "name": "Aerotek",
+      "url": "https://ctreentry.org/stamford-employment",
+      "description": "Technical and industrial staffing agency (203-388-7440) offering same-day assignments for motivated workers, opening daily at 5:00 AM.",
+      "searchTerms": [],
+      "added": "2026-04-25T11:32:55.171836Z",
+      "active": true
+    },
+    {
+      "id": "source-csv-11-1777116775",
+      "name": "Fogarty, Knapp & Associates",
+      "url": "https://www.fogartyknapp.com/fairfield-county-ct",
+      "description": "Recruitment firm specializing in administrative, industrial, and labor jobs throughout Fairfield County with access to non-public job postings.",
+      "searchTerms": [],
+      "added": "2026-04-25T11:32:55.171840Z",
+      "active": true
+    },
+    {
+      "id": "source-csv-12-1777116775",
+      "name": "Michael Page",
+      "url": "https://www.michaelpage.com/jobs/stamford",
+      "description": "International recruitment consultancy connecting candidates with top-tier corporate positions.",
+      "searchTerms": [],
+      "added": "2026-04-25T11:32:55.171843Z",
+      "active": true
+    },
+    {
+      "id": "source-csv-13-1777116775",
+      "name": "CFA Society Stamford Job Board",
+      "url": "https://www.cfasociety.org/stamford/cfa-career-center",
+      "description": "Specialized board for finance professionals connected to the CFA Institute, offering local and global opportunities for students, interns, and finance professionals at all career stages.",
+      "searchTerms": [],
+      "added": "2026-04-25T11:32:55.171846Z",
+      "active": true
+    }
+  ]
+}
