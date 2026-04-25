@@ -43,9 +43,18 @@ async function loadJobBoardData() {
 
 function renderJobBoard() {
     updateJobBoardStats();
+    updateJobBoardTimestamp();
     updateJobBoardLocationFilter();
     applyJobBoardFilters();
     renderJobBoardSources();
+}
+
+function updateJobBoardTimestamp() {
+    const el = document.getElementById('jb-updated-time');
+    if (jobboardState.listings.length > 0 && jobboardState.listings[0].discovered) {
+        const d = new Date(jobboardState.listings[0].discovered);
+        el.textContent = d.toLocaleString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'America/New_York' }) + ' ET';
+    }
 }
 
 function updateJobBoardStats() {
