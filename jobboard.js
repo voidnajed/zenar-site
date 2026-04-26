@@ -136,3 +136,4 @@ function escapeAttr(text) {
 
 // Load on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', loadAndRender);
+
