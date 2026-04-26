@@ -480,74 +480,11 @@
   <script src="./game.js"></script>
   <script src="./app.js" defer></script>
   <script>
-// Job Board — Inline
-let jobboardState = { listings: [], sources: [], filteredListings: [] };
-
-async function loadAndRender() {
-  try {
-    const [listingsRes, sourcesRes] = await Promise.all([
-      fetch('./data/job-listings.json'),
-      fetch('./data/job-sources.json')
-    ]);
-    if (!listingsRes.ok || !sourcesRes.ok) return;
-    
-    const listings = await listingsRes.json();
-    const sources = await sourcesRes.json();
-    
-    jobboardState.listings = listings.listings || [];
-    jobboardState.sources = sources.sources || [];
-    jobboardState.filteredListings = jobboardState.listings;
-    
-    render();
-  } catch(e) {
-    console.error('Job board error:', e);
-  }
-}
-
-function render() {
-  // Timestamp
-  const timeEl = document.getElementById('jb-updated-time');
-  if (timeEl && jobboardState.listings[0]?.discovered) {
-    const d = new Date(jobboardState.listings[0].discovered);
-    timeEl.textContent = d.toLocaleString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' ET';
-  }
-  
-  // Stats
-  const stats = document.getElementById('jb-stats');
-  if (stats) {
-    stats.innerHTML = `<div style="padding:var(--space-3) var(--space-4);background:var(--color-surface);border-radius:var(--radius-md);"><div style="font-size:var(--text-sm);opacity:0.7;">Total Jobs</div><div style="font-size:1.5rem;font-weight:600;">${jobboardState.listings.length}</div></div>`;
-  }
-  
-  // Locations
-  const locEl = document.getElementById('jb-filter-location');
-  if (locEl) {
-    const locs = [...new Set(jobboardState.listings.map(j => j.location).filter(Boolean))].sort();
-    locEl.innerHTML = '<option value="">All Locations</option>' + locs.map(l => `<option value="${escapeHtml(l)}">${escapeHtml(l)}</option>`).join('');
-    locEl.onchange = () => { jobboardState.filteredListings = !locEl.value ? jobboardState.listings : jobboardState.listings.filter(l => l.location === locEl.value); renderListings(); };
-  }
-  
-  renderListings();
-  
-  // Sources
-  const srcEl = document.getElementById('jb-sources');
-  if (srcEl && jobboardState.sources.length) {
-    srcEl.innerHTML = jobboardState.sources.map(s => `<div style="padding:var(--space-3);background:var(--color-surface);border-radius:var(--radius-md);"><h4 style="margin:0 0 var(--space-1);">${escapeHtml(s.name)}</h4><p style="margin:0 0 var(--space-1);opacity:0.8;font-size:var(--text-sm);">${escapeHtml(s.description || '')}</p><a href="${s.url}" target="_blank" style="font-size:var(--text-xs);">${escapeHtml(s.url.replace(/^https?:\/\//, '').replace(/\/$/, ''))} →</a></div>`).join('');
-  }
-}
-
-function renderListings() {
-  const container = document.getElementById('jb-listings');
-  if (!container) return;
-  if (!jobboardState.filteredListings.length) {
-    container.innerHTML = '<p style="opacity:0.6;">No listings.</p>';
-    return;
-  }
-  container.innerHTML = jobboardState.filteredListings.map(l => `<div style="padding:var(--space-4);background:var(--color-surface);border-radius:var(--radius-md);border-left:3px solid #4ade80;"><div><h3 style="margin:0;">${escapeHtml(l.jobTitle || 'Untitled')}</h3><p style="margin:var(--space-1) 0 0;opacity:0.8;">${escapeHtml(l.company)}</p></div><div style="margin:var(--space-2) 0;font-size:var(--text-sm);opacity:0.8;"><div><strong>📍</strong> ${escapeHtml(l.location || 'N/A')}</div>${l.salaryRange ? `<div><strong>💰</strong> ${escapeHtml(l.salaryRange)}</div>` : ''}</div><a href="${l.link}" target="_blank" style="display:inline-block;padding:var(--space-2) var(--space-4);background:var(--color-primary);color:var(--color-text-inverse);border-radius:var(--radius-md);text-decoration:none;">View Job →</a></div>`).join('');
-}
-
-function escapeHtml(t) { if (!t) return ''; return String(t).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c])); }
-
-document.addEventListener('DOMContentLoaded', loadAndRender);
+    // Inline script tag generator to bust cache
+    var script = document.createElement('script');
+    script.src = './jobboard-v3.js?t=' + Date.now();
+    script.defer = true;
+    document.currentScript.parentElement.appendChild(script);
   </script>
 <!-- WiredMinds eMetrics tracking with Enterprise Edition V5.4 START -->
 <script type='text/javascript' src='https://count.carrierzone.com/app/count_server/count.js'></script>

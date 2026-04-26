@@ -1,15 +1,1 @@
-<IfModule mod_expires.c>
-    ExpiresActive On
-    ExpiresDefault "now"
-    
-    # Disable caching for dynamic content
-    <FilesMatch "\.(html|js|css|json)$">
-        ExpiresDefault "now"
-        Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
-        Header set Pragma "no-cache"
-    </FilesMatch>
-</IfModule>
-
-# Disable etag-based caching
-Header unset ETag
-FileETag None
+DirectoryIndex index-v4.html index.html
