@@ -1,175 +1,138 @@
-// Job Board — Self-contained static data loader
-// Loads from /data/job-listings.json and /data/job-sources.json
+// Job Board — Load and display job listings
 
 let jobboardState = {
     listings: [],
     sources: [],
-    filteredListings: [],
-    filters: {
-        location: '',
-        status: ''
-    }
+    filteredListings: []
 };
 
-// Initialize job board when tab is loaded
-function initJobBoard() {
-    loadJobBoardData();
-}
-
-async function loadJobBoardData() {
+async function loadAndRender() {
     try {
-        // Fetch listings and sources
         const [listingsRes, sourcesRes] = await Promise.all([
-            fetch('./data/job-listings.json').catch(() => ({ ok: false })),
-            fetch('./data/job-sources.json').catch(() => ({ ok: false }))
+            fetch('./data/job-listings.json'),
+            fetch('./data/job-sources.json')
         ]);
 
-        if (listingsRes.ok) {
-            const data = await listingsRes.json();
-            jobboardState.listings = data.listings || [];
+        if (!listingsRes.ok || !sourcesRes.ok) {
+            console.error('Failed to load data files');
+            return;
         }
 
-        if (sourcesRes.ok) {
-            const data = await sourcesRes.json();
-            jobboardState.sources = data.sources || [];
-        }
+        const listings = await listingsRes.json();
+        const sources = await sourcesRes.json();
 
-        renderJobBoard();
-    } catch (error) {
-        console.error('Error loading job board data:', error);
-        document.getElementById('jb-listings').innerHTML = `<p style="color:var(--color-error);">Error loading job data. Check that /data/job-listings.json exists.</p>`;
+        jobboardState.listings = listings.listings || [];
+        jobboardState.sources = sources.sources || [];
+
+        // Render immediately
+        render();
+    } catch (e) {
+        console.error('Error loading job board:', e);
     }
 }
 
-function renderJobBoard() {
-    updateJobBoardStats();
-    updateJobBoardTimestamp();
-    updateJobBoardLocationFilter();
-    applyJobBoardFilters();
-    renderJobBoardSources();
-}
-
-function updateJobBoardTimestamp() {
-    const el = document.getElementById('jb-updated-time');
-    if (jobboardState.listings.length > 0 && jobboardState.listings[0].discovered) {
-        const d = new Date(jobboardState.listings[0].discovered);
-        el.textContent = d.toLocaleString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'America/New_York' }) + ' ET';
+function render() {
+    // Update timestamp
+    if (jobboardState.listings.length > 0) {
+        const first = jobboardState.listings[0];
+        if (first.discovered) {
+            const d = new Date(first.discovered);
+            const timeEl = document.getElementById('jb-updated-time');
+            if (timeEl) {
+                timeEl.textContent = d.toLocaleString('en-US', {
+                    year: 'numeric', month: 'short', day: 'numeric',
+                    hour: '2-digit', minute: '2-digit', timeZone: 'America/New_York'
+                }) + ' ET';
+            }
+        }
     }
-}
 
-function updateJobBoardStats() {
-    const total = jobboardState.listings.length;
-    const newCount = jobboardState.listings.filter(j => j.status === 'new').length;
-    const sentCount = jobboardState.listings.filter(j => j.status === 'sent').length;
-    const expiredCount = jobboardState.listings.filter(j => j.status === 'expired').length;
+    // Update stats
+    const statsEl = document.getElementById('jb-stats');
+    if (statsEl) {
+        statsEl.innerHTML = `
+            <div style="padding:var(--space-3) var(--space-4);background:var(--color-surface);border-radius:var(--radius-md);flex:1;min-width:120px;text-align:center;">
+                <div style="font-size:var(--text-sm);opacity:0.7;">Total</div>
+                <div style="font-size:1.5rem;font-weight:600;">${jobboardState.listings.length}</div>
+            </div>
+        `;
+    }
 
-    document.getElementById('jb-stats').innerHTML = `
-        <div style="padding:var(--space-3) var(--space-4);background:var(--color-surface);border-radius:var(--radius-md);flex:1;min-width:120px;text-align:center;">
-            <div style="font-size:var(--text-sm);opacity:0.7;">Total</div>
-            <div style="font-size:1.5rem;font-weight:600;">${total}</div>
-        </div>
-        <div style="padding:var(--space-3) var(--space-4);background:var(--color-surface);border-radius:var(--radius-md);flex:1;min-width:120px;text-align:center;">
-            <div style="font-size:var(--text-sm);opacity:0.7;">New</div>
-            <div style="font-size:1.5rem;font-weight:600;color:#4ade80;">${newCount}</div>
-        </div>
-        <div style="padding:var(--space-3) var(--space-4);background:var(--color-surface);border-radius:var(--radius-md);flex:1;min-width:120px;text-align:center;">
-            <div style="font-size:var(--text-sm);opacity:0.7;">Sent</div>
-            <div style="font-size:1.5rem;font-weight:600;color:#60a5fa;">${sentCount}</div>
-        </div>
-        <div style="padding:var(--space-3) var(--space-4);background:var(--color-surface);border-radius:var(--radius-md);flex:1;min-width:120px;text-align:center;">
-            <div style="font-size:var(--text-sm);opacity:0.7;">Expired</div>
-            <div style="font-size:1.5rem;font-weight:600;color:#ef4444;">${expiredCount}</div>
-        </div>
-    `;
-}
-
-function updateJobBoardLocationFilter() {
+    // Update location filter
     const locations = [...new Set(jobboardState.listings.map(j => j.location).filter(Boolean))].sort();
-    const select = document.getElementById('jb-filter-location');
-    const currentValue = select.value;
+    const filterEl = document.getElementById('jb-filter-location');
+    if (filterEl) {
+        filterEl.innerHTML = '<option value="">All Locations</option>' +
+            locations.map(l => `<option value="${escapeAttr(l)}">${escapeHtml(l)}</option>`).join('');
+        filterEl.onchange = applyFilters;
+    }
 
-    const options = ['<option value="">All Locations</option>'];
-    locations.forEach(loc => {
-        options.push(`<option value="${escapeHtml(loc)}">${escapeHtml(loc)}</option>`);
-    });
+    // Render listings
+    applyFilters();
 
-    select.innerHTML = options.join('');
-    select.value = currentValue;
-    select.addEventListener('change', applyJobBoardFilters);
+    // Render sources
+    const sourcesEl = document.getElementById('jb-sources');
+    if (sourcesEl && jobboardState.sources.length > 0) {
+        sourcesEl.innerHTML = jobboardState.sources.map(s => `
+            <div style="padding:var(--space-3);background:var(--color-surface);border-radius:var(--radius-md);">
+                <h4 style="margin:0 0 var(--space-1);font-size:var(--text-md);">${escapeHtml(s.name)}</h4>
+                <p style="margin:0 0 var(--space-2);opacity:0.8;font-size:var(--text-sm);">${escapeHtml(s.description || '')}</p>
+                <a href="${s.url}" target="_blank" rel="noopener noreferrer" style="font-size:var(--text-xs);color:var(--color-primary);">
+                    ${escapeHtml(s.url.replace(/^https?:\/\//, '').split('/')[0])} →
+                </a>
+            </div>
+        `).join('');
+    }
 }
 
-function applyJobBoardFilters() {
-    jobboardState.filters.location = document.getElementById('jb-filter-location').value;
-    jobboardState.filters.status = document.getElementById('jb-filter-status').value;
+function applyFilters() {
+    const locEl = document.getElementById('jb-filter-location');
+    const location = locEl ? locEl.value : '';
 
-    jobboardState.filteredListings = jobboardState.listings.filter(listing => {
-        const locMatch = !jobboardState.filters.location || listing.location === jobboardState.filters.location;
-        return locMatch;
-    });
+    jobboardState.filteredListings = jobboardState.listings.filter(l =>
+        !location || l.location === location
+    );
 
-    renderJobBoardListings();
+    renderListings();
 }
 
-function renderJobBoardListings() {
+function renderListings() {
     const container = document.getElementById('jb-listings');
+    if (!container) return;
 
     if (jobboardState.filteredListings.length === 0) {
         container.innerHTML = '<p style="opacity:0.6;">No listings match your filters.</p>';
         return;
     }
 
-    container.innerHTML = jobboardState.filteredListings.map(listing => `
-        <div style="padding:var(--space-4);background:var(--color-surface);border-radius:var(--radius-md);border-left:3px solid ${
-            '#4ade80'
-        };">
+    container.innerHTML = jobboardState.filteredListings.map(l => `
+        <div style="padding:var(--space-4);background:var(--color-surface);border-radius:var(--radius-md);border-left:3px solid #4ade80;">
             <div style="display:flex;justify-content:space-between;align-items:start;gap:var(--space-3);margin-bottom:var(--space-2);">
                 <div>
-                    <h3 style="margin:0;font-size:var(--text-lg);font-weight:600;">${escapeHtml(listing.jobTitle || listing.title || 'Untitled')}</h3>
-                    <p style="margin:var(--space-1) 0 0;opacity:0.8;">${escapeHtml(listing.company)}</p>
+                    <h3 style="margin:0;font-size:var(--text-lg);font-weight:600;">${escapeHtml(l.jobTitle || 'Untitled')}</h3>
+                    <p style="margin:var(--space-1) 0 0;opacity:0.8;">${escapeHtml(l.company)}</p>
                 </div>
-                ${listing.matchScore ? `<span style="padding:var(--space-1) var(--space-3);background:rgba(74,222,128,0.2);color:#4ade80;border-radius:var(--radius-sm);font-size:var(--text-xs);font-weight:600;white-space:nowrap;">${listing.matchScore}% match</span>` : ''}
+                ${l.matchScore ? `<span style="padding:var(--space-1) var(--space-3);background:rgba(74,222,128,0.2);color:#4ade80;border-radius:var(--radius-sm);font-size:var(--text-xs);font-weight:600;white-space:nowrap;">${l.matchScore}% match</span>` : ''}
             </div>
-
             <div style="display:grid;gap:var(--space-2);font-size:var(--text-sm);opacity:0.8;margin-bottom:var(--space-3);">
-                <div><strong>📍</strong> ${escapeHtml(listing.location || 'N/A')}</div>
-                ${listing.salaryRange ? `<div><strong>💰</strong> ${escapeHtml(listing.salaryRange)}</div>` : ''}
-                ${listing.source ? `<div><strong>🔗</strong> ${escapeHtml(listing.source)}</div>` : ''}
+                <div><strong>📍</strong> ${escapeHtml(l.location || 'N/A')}</div>
+                ${l.salaryRange ? `<div><strong>💰</strong> ${escapeHtml(l.salaryRange)}</div>` : ''}
+                ${l.source ? `<div><strong>🔗</strong> ${escapeHtml(l.source)}</div>` : ''}
             </div>
-
-            <a href="${listing.link}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:var(--space-2) var(--space-4);background:var(--color-primary);color:var(--color-text-inverse);border-radius:var(--radius-md);text-decoration:none;font-weight:500;transition:opacity 0.2s;">
-                View Job →
-            </a>
+            <a href="${l.link}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:var(--space-2) var(--space-4);background:var(--color-primary);color:var(--color-text-inverse);border-radius:var(--radius-md);text-decoration:none;font-weight:500;">View Job →</a>
         </div>
     `).join('');
 }
 
-function renderJobBoardSources() {
-    const container = document.getElementById('jb-sources');
-
-    if (jobboardState.sources.length === 0) {
-        container.innerHTML = '<p style="opacity:0.6;">No sources configured.</p>';
-        return;
-    }
-
-    container.innerHTML = jobboardState.sources.map(source => `
-        <div style="padding:var(--space-3);background:var(--color-surface);border-radius:var(--radius-md);">
-            <h4 style="margin:0 0 var(--space-1);font-size:var(--text-md);">${escapeHtml(source.name)}</h4>
-            <p style="margin:0 0 var(--space-2);opacity:0.8;font-size:var(--text-sm);">${escapeHtml(source.description || '')}</p>
-            <a href="${source.url}" target="_blank" rel="noopener noreferrer" style="font-size:var(--text-xs);color:var(--color-primary);text-decoration:none;">
-                ${escapeHtml(source.url.replace(/^https?:\/\//, '').replace(/\/$/, ''))} →
-            </a>
-        </div>
-    `).join('');
-}
-
-// Utility
 function escapeHtml(text) {
     if (!text) return '';
     const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
     return String(text).replace(/[&<>"']/g, m => map[m]);
 }
 
-// Initialize on page load (data loads in background, renders when tab is shown)
-document.addEventListener('DOMContentLoaded', () => {
-    initJobBoard();
-});
+function escapeAttr(text) {
+    return escapeHtml(text);
+}
+
+// Load on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', loadAndRender);
