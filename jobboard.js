@@ -104,8 +104,7 @@ function applyJobBoardFilters() {
 
     jobboardState.filteredListings = jobboardState.listings.filter(listing => {
         const locMatch = !jobboardState.filters.location || listing.location === jobboardState.filters.location;
-        const statMatch = !jobboardState.filters.status || listing.status === jobboardState.filters.status;
-        return locMatch && statMatch;
+        return locMatch;
     });
 
     renderJobBoardListings();
@@ -121,20 +120,14 @@ function renderJobBoardListings() {
 
     container.innerHTML = jobboardState.filteredListings.map(listing => `
         <div style="padding:var(--space-4);background:var(--color-surface);border-radius:var(--radius-md);border-left:3px solid ${
-            listing.status === 'new' ? '#4ade80' :
-            listing.status === 'sent' ? '#60a5fa' :
-            '#ef4444'
+            '#4ade80'
         };">
             <div style="display:flex;justify-content:space-between;align-items:start;gap:var(--space-3);margin-bottom:var(--space-2);">
                 <div>
                     <h3 style="margin:0;font-size:var(--text-lg);font-weight:600;">${escapeHtml(listing.jobTitle || listing.title || 'Untitled')}</h3>
                     <p style="margin:var(--space-1) 0 0;opacity:0.8;">${escapeHtml(listing.company)}</p>
                 </div>
-                <span style="padding:var(--space-1) var(--space-3);background:${
-                    listing.status === 'new' ? 'rgba(74,222,128,0.2);color:#4ade80' :
-                    listing.status === 'sent' ? 'rgba(96,165,250,0.2);color:#60a5fa' :
-                    'rgba(239,68,68,0.2);color:#ef4444'
-                };border-radius:var(--radius-sm);font-size:var(--text-xs);font-weight:600;white-space:nowrap;">${listing.status.toUpperCase()}</span>
+                ${listing.matchScore ? `<span style="padding:var(--space-1) var(--space-3);background:rgba(74,222,128,0.2);color:#4ade80;border-radius:var(--radius-sm);font-size:var(--text-xs);font-weight:600;white-space:nowrap;">${listing.matchScore}% match</span>` : ''}
             </div>
 
             <div style="display:grid;gap:var(--space-2);font-size:var(--text-sm);opacity:0.8;margin-bottom:var(--space-3);">
