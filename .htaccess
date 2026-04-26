@@ -1,0 +1,11 @@
+<IfModule mod_headers.c>
+  # Disable caching for dynamic content
+  Header set Cache-Control "no-cache, no-store, must-revalidate"
+  Header set Pragma "no-cache"
+  Header set Expires "0"
+
+  # Specific rules for JS files
+  <FilesMatch "\.js$">
+    Header set Cache-Control "no-cache, max-age=0"
+  </FilesMatch>
+</IfModule>
