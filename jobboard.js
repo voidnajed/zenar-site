@@ -169,22 +169,7 @@ function escapeHtml(text) {
     return String(text).replace(/[&<>"']/g, m => map[m]);
 }
 
-// Hook into the zenar site's tab system
-// When the jobboard tab is clicked, initialize the job board
+// Initialize on page load (data loads in background, renders when tab is shown)
 document.addEventListener('DOMContentLoaded', () => {
-    // Find the jobboard tab button and add a click handler
-    const jobboardBtn = document.querySelector('[data-tab="jobboard"]');
-    if (jobboardBtn) {
-        jobboardBtn.addEventListener('click', () => {
-            // Delay initialization until tab is actually visible
-            setTimeout(initJobBoard, 100);
-        });
-    }
-
-    // Also listen to global tab switching events if the site uses them
-    document.addEventListener('tabChanged', (e) => {
-        if (e.detail?.tab === 'jobboard') {
-            initJobBoard();
-        }
-    });
+    initJobBoard();
 });
